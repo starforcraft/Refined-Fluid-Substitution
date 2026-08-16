@@ -1,15 +1,12 @@
 package com.ultramega.refinedfluidsubstitution.fabric;
 
 import com.ultramega.refinedfluidsubstitution.common.AbstractModInitializer;
-import com.ultramega.refinedfluidsubstitution.common.Platform;
 import com.ultramega.refinedfluidsubstitution.common.registry.CreativeModeTabItems;
 
 import com.refinedmods.refinedstorage.common.api.RefinedStorageApi;
 import com.refinedmods.refinedstorage.common.content.DirectRegistryCallback;
 import com.refinedmods.refinedstorage.fabric.api.RefinedStoragePlugin;
 
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -20,7 +17,6 @@ import net.minecraft.world.item.CreativeModeTab;
 public class ModInitializerImpl extends AbstractModInitializer implements RefinedStoragePlugin, ModInitializer {
     @Override
     public void onApiAvailable(final RefinedStorageApi refinedStorageApi) {
-        Platform.setConfigProvider(ConfigImpl::get);
         this.registerContent();
         this.registerCreativeModeTabListener(refinedStorageApi);
     }
@@ -41,6 +37,5 @@ public class ModInitializerImpl extends AbstractModInitializer implements Refine
 
     @Override
     public void onInitialize() {
-        AutoConfig.register(ConfigImpl.class, Toml4jConfigSerializer::new);
     }
 }

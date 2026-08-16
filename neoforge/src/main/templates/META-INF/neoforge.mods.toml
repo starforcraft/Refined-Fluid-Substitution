@@ -8,7 +8,10 @@ displayName = "Refined Fluid Substitution"
 displayURL = "https://www.curseforge.com/minecraft/mc-mods/refined-fluid-substitution"
 logoFile="logo.png"
 authors = "Ultramega"
-description = "Adds Fluid Substitution (not requiring buckets when crafting patterns) to Refined Storage."
+description = "Adds a fluid substitution pattern, allowing fluids to be used directly instead of buckets to Refined Storage."
+
+[[mixins]]
+config = "refinedfluidsubstitution.mixins.json"
 
 [[dependencies.refinedfluidsubstitution]]
 modId = "refinedstorage"

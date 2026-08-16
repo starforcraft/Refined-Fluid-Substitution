@@ -3,7 +3,7 @@
   "id": "refinedfluidsubstitution",
   "version": "${version}",
   "name": "Refined Fluid Substitution",
-  "description": "Adds Fluid Substitution (not requiring buckets when crafting patterns) to Refined Storage.",
+  "description": "Adds a fluid substitution pattern, allowing fluids to be used directly instead of buckets to Refined Storage.",
   "authors": [
     "Ultramega"
   ],
@@ -18,14 +18,8 @@
     "main": [
       "com.ultramega.refinedfluidsubstitution.fabric.ModInitializerImpl"
     ],
-    "client": [
-      "com.ultramega.refinedfluidsubstitution.fabric.ClientModInitializerImpl"
-    ],
     "refinedstorage_plugin": [
       "com.ultramega.refinedfluidsubstitution.fabric.ModInitializerImpl"
-    ],
-    "modmenu": [
-      "com.ultramega.refinedfluidsubstitution.fabric.ModMenuApiImpl"
     ]
   },
   "custom": {
@@ -47,5 +41,8 @@
   },
   "suggests": {
     "modmenu": "*"
-  }
+  },
+  "mixins": [
+    "refinedfluidsubstitution.mixins.json"
+  ]
 }

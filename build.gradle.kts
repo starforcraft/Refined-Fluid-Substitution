@@ -16,15 +16,15 @@ publishMods {
 
     val cfOptions = curseforgeOptions {
         accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
-        projectId = ""
+        projectId = "1654826"
         minecraftVersions.add(minecraftVersion)
-	client = true
-	server = true
+        client = true
+        server = true
     }
 
     val mrOptions = modrinthOptions {
         accessToken = providers.environmentVariable("MODRINTH_TOKEN")
-        projectId = ""
+        projectId = "d0GLcSU4"
         minecraftVersions.add(minecraftVersion)
     }
 

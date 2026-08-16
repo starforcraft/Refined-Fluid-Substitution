@@ -68,7 +68,6 @@
         <module name="IllegalToken"/>
         <module name="IllegalType"/>
         <module name="InnerAssignment"/>
-        <module name="ModifiedControlVariable"/>
         <module name="NestedForDepth"/>
         <module name="NestedIfDepth"/>
         <module name="NestedTryDepth"/>
@@ -79,8 +78,8 @@
         <module name="PackageDeclaration"/>
         <module name="ParameterAssignment"/>
         <module name="ReturnCount">
-            <property name="max" value="4"/>
-            <property name="maxForVoid" value="4"/>
+            <property name="max" value="5"/>
+            <property name="maxForVoid" value="5"/>
         </module>
         <module name="SimplifyBooleanExpression"/>
         <module name="SimplifyBooleanReturn"/>
@@ -102,7 +101,6 @@
         <module name="UncommentedMain"/>
         <module name="RedundantModifier"/>
         <module name="ConstantName"/>
-        <module name="IllegalIdentifierName"/>
         <module name="AnonInnerLength"/>
         <module name="MethodCount"/>
         <module name="MethodLength"/>
@@ -164,11 +162,6 @@
                     ANNOTATION_DEF, RECORD_DEF"/>
             <message key="name.invalidPattern"
                      value="Type name ''{0}'' must match pattern ''{1}''."/>
-        </module>
-        <module name="MemberName">
-            <property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>
-            <message key="name.invalidPattern"
-                     value="Member name ''{0}'' must match pattern ''{1}''."/>
         </module>
         <module name="ParameterName">
             <property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>

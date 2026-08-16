@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.ultramega.refinedfluidsubstitution.common.mixin",
+  "client": [
+    "CraftingPatternClientTooltipComponentMixin"
+  ],
+  "mixins": [
+    "AbstractNetworkNodeContainerBlockEntityMixin",
+    "AutocrafterBlockEntityMixin",
+    "PatternGridBlockEntityMixin",
+    "PatternOutputContainerMixin",
+    "PatternProviderNetworkNodeMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

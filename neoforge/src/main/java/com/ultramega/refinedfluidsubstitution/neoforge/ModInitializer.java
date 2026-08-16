@@ -1,7 +1,6 @@
 package com.ultramega.refinedfluidsubstitution.neoforge;
 
 import com.ultramega.refinedfluidsubstitution.common.AbstractModInitializer;
-import com.ultramega.refinedfluidsubstitution.common.Platform;
 import com.ultramega.refinedfluidsubstitution.common.registry.CreativeModeTabItems;
 
 import com.refinedmods.refinedstorage.common.api.RefinedStorageApi;
@@ -15,14 +14,9 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.config.ModConfig;
-import net.neoforged.fml.loading.FMLEnvironment;
-import net.neoforged.neoforge.client.gui.ConfigurationScreen;
-import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -32,13 +26,7 @@ import static com.ultramega.refinedfluidsubstitution.common.FluidSubstitutionIde
 public class ModInitializer extends AbstractModInitializer {
     private final DeferredRegister<Item> itemRegistry = DeferredRegister.create(BuiltInRegistries.ITEM, MOD_ID);
 
-    public ModInitializer(final IEventBus eventBus, final ModContainer modContainer) {
-        final ConfigImpl config = new ConfigImpl();
-        modContainer.registerConfig(ModConfig.Type.COMMON, config.getSpec());
-        Platform.setConfigProvider(() -> config);
-        if (FMLEnvironment.getDist() == Dist.CLIENT) {
-            modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
-        }
+    public ModInitializer(final IEventBus eventBus) {
         this.registerContent(eventBus);
         eventBus.addListener(this::registerCreativeModeTabListener);
     }
