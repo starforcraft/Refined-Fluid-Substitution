@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_pattern": {
+      "conditions": {
+        "items": [
+          {
+            "items": "refinedstorage:pattern"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "refinedfluidsubstitution:fluid_substitution_pattern"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_pattern"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "refinedfluidsubstitution:fluid_substitution_pattern"
+    ]
+  }
+}

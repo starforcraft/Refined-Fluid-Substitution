@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": "minecraft:bucket",
+    "P": "refinedstorage:pattern"
+  },
+  "pattern": [
+    "BPB"
+  ],
+  "result": {
+    "id": "refinedfluidsubstitution:fluid_substitution_pattern"
+  }
+}

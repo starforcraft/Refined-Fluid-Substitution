@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "refinedfluidsubstitution:item/fluid_substitution_pattern"
+  }
+}

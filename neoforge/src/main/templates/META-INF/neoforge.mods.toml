@@ -1,0 +1,24 @@
+modLoader = "javafml"
+issueTrackerURL = "https://github.com/starforcraft/Refined-Fluid-Substitution/issues"
+license = "MIT"
+[[mods]]
+modId = "refinedfluidsubstitution"
+version = "${version}"
+displayName = "Refined Fluid Substitution"
+displayURL = "https://www.curseforge.com/minecraft/mc-mods/refined-fluid-substitution"
+logoFile="logo.png"
+authors = "Ultramega"
+description = "Adds Fluid Substitution (not requiring buckets when crafting patterns) to Refined Storage."
+
+[[dependencies.refinedfluidsubstitution]]
+modId = "refinedstorage"
+type = "required"
+versionRange = "3.2.0"
+side = "BOTH"
+
+[[dependencies.refinedfluidsubstitution]]
+modId="minecraft"
+type="required"
+versionRange="[26.1.2,)"
+ordering="NONE"
+side="BOTH"
