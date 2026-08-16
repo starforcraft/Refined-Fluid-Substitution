@@ -1,6 +1,15 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "refinedfluidsubstitution:item/fluid_substitution_pattern"
+    "type": "minecraft:condition",
+    "component": "refinedstorage:pattern_state",
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "refinedfluidsubstitution:item/fluid_substitution_pattern/empty"
+    },
+    "on_true": {
+      "type": "minecraft:model",
+      "model": "refinedfluidsubstitution:item/fluid_substitution_pattern/pattern"
+    },
+    "property": "minecraft:has_component"
   }
 }
