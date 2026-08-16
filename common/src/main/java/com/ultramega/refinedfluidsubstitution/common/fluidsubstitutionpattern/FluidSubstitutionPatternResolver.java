@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.function.Function;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingInput;
@@ -37,26 +38,40 @@ public final class FluidSubstitutionPatternResolver {
         if (craftingState == null) {
             return Optional.of(new ResolvedPattern(pattern, List.of(), List.of()));
         }
+        final CraftingInput craftingInput = craftingState.input().input();
+        final List<ItemStack> encodedInputs = new ArrayList<>(craftingInput.size());
+        for (int slot = 0; slot < craftingInput.size(); ++slot) {
+            encodedInputs.add(craftingInput.getItem(slot));
+        }
+        return Optional.of(resolve(
+            pattern,
+            encodedInputs,
+            Platform.INSTANCE.getBucketAmount(),
+            Platform.INSTANCE::drainContainer
+        ));
+    }
 
+    static ResolvedPattern resolve(final Pattern pattern,
+                                   final List<ItemStack> encodedInputs,
+                                   final long bucketAmount,
+                                   final Function<ItemStack, Optional<FluidOperationResult>> containerDrainer) {
         final List<Ingredient> ingredients = new ArrayList<>(pattern.layout().ingredients());
         final List<ResourceAmount> byproducts = new ArrayList<>(pattern.layout().byproducts());
         final List<Pattern> helperPatterns = new ArrayList<>();
         final List<Substitution> substitutions = new ArrayList<>();
-        final CraftingInput craftingInput = craftingState.input().input();
-        final long bucketAmount = Platform.INSTANCE.getBucketAmount();
 
         int ingredientIndex = 0;
-        for (int slot = 0; slot < craftingInput.size(); ++slot) {
-            final ItemStack encodedInput = craftingInput.getItem(slot);
+        for (int slot = 0; slot < encodedInputs.size(); ++slot) {
+            final ItemStack encodedInput = encodedInputs.get(slot);
             if (encodedInput.isEmpty()) {
                 continue;
             }
             if (ingredientIndex >= ingredients.size()) {
-                return Optional.of(new ResolvedPattern(pattern, List.of(), List.of()));
+                return new ResolvedPattern(pattern, List.of(), List.of());
             }
 
             final int currentIngredientIndex = ingredientIndex++;
-            final Optional<FluidOperationResult> drained = Platform.INSTANCE.drainContainer(encodedInput.copyWithCount(1));
+            final Optional<FluidOperationResult> drained = containerDrainer.apply(encodedInput.copyWithCount(1));
             if (drained.isEmpty() || drained.get().amount() != bucketAmount) {
                 continue;
             }
@@ -81,7 +96,7 @@ public final class FluidSubstitutionPatternResolver {
         }
 
         if (helperPatterns.isEmpty()) {
-            return Optional.of(new ResolvedPattern(pattern, List.of(), List.of()));
+            return new ResolvedPattern(pattern, List.of(), List.of());
         }
 
         final Pattern substituted = new Pattern(
@@ -93,7 +108,7 @@ public final class FluidSubstitutionPatternResolver {
                 pattern.layout().type()
             )
         );
-        return Optional.of(new ResolvedPattern(substituted, helperPatterns, substitutions));
+        return new ResolvedPattern(substituted, helperPatterns, substitutions);
     }
 
     private static Pattern createHelperPattern(final UUID parentPatternId,
@@ -101,7 +116,6 @@ public final class FluidSubstitutionPatternResolver {
                                                final ItemStack encodedInput,
                                                final FluidOperationResult drained,
                                                final long bucketAmount) {
-        final UUID helperId = UUID.nameUUIDFromBytes((parentPatternId + ":fluid-substitution:" + slot).getBytes(StandardCharsets.UTF_8));
         final List<ResourceAmount> helperByproducts = drained.container().isEmpty()
             ? List.of()
             : List.of(new ResourceAmount(
@@ -109,11 +123,15 @@ public final class FluidSubstitutionPatternResolver {
                 drained.container().getCount()
             ));
 
-        return new Pattern(helperId, PatternLayout.internal(
+        return new Pattern(createHelperPatternUUID(parentPatternId, slot), PatternLayout.internal(
             List.of(new Ingredient(1, List.of(ItemResource.ofItemStack(encodedInput.copyWithCount(1))))),
             List.of(new ResourceAmount(drained.fluid(), bucketAmount)),
             helperByproducts
         ));
+    }
+
+    static UUID createHelperPatternUUID(final UUID parentPatternId, final int slot) {
+        return UUID.nameUUIDFromBytes((parentPatternId + ":fluid-substitution:" + slot).getBytes(StandardCharsets.UTF_8));
     }
 
     private static boolean canRemoveContainerRemainder(final List<ResourceAmount> byproducts,

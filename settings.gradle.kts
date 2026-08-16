@@ -1,3 +1,21 @@
+dependencyResolutionManagement {
+    repositories {
+        maven {
+            name = "Refined Architect"
+            url = uri("https://maven.creeperhost.net")
+            content {
+                includeGroupAndSubgroups("com.refinedmods.refinedarchitect")
+            }
+        }
+    }
+    versionCatalogs {
+        create("libs") {
+            val refinedarchitectVersion: String by settings
+            from("com.refinedmods.refinedarchitect:refinedarchitect-versioning:${refinedarchitectVersion}")
+        }
+    }
+}
+
 pluginManagement {
     repositories {
         mavenCentral()

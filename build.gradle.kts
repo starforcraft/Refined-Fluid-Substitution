@@ -1,3 +1,5 @@
+import me.modmuss50.mpp.PublishModTask
+
 plugins {
     id("com.refinedmods.refinedarchitect.root")
     id("com.refinedmods.refinedarchitect.base")
@@ -9,6 +11,21 @@ val currentChangelog: String by project
 val minecraftVersion: String by project
 
 version = modVersion
+
+val runRequiredTests by tasks.registering {
+    group = LifecycleBasePlugin.VERIFICATION_GROUP
+    description = "Runs tests required before building or publishing."
+
+    dependsOn(":common:test")
+}
+
+tasks.withType<PublishModTask>().configureEach {
+    dependsOn(runRequiredTests)
+}
+
+tasks.named("build") {
+    dependsOn(runRequiredTests)
+}
 
 publishMods {
     changelog = currentChangelog
