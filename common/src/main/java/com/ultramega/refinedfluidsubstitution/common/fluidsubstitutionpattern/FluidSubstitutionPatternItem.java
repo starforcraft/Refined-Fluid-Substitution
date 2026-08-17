@@ -1,7 +1,5 @@
 package com.ultramega.refinedfluidsubstitution.common.fluidsubstitutionpattern;
 
-import com.ultramega.refinedfluidsubstitution.common.ContentIds;
-
 import com.refinedmods.refinedstorage.api.autocrafting.Pattern;
 import com.refinedmods.refinedstorage.common.api.autocrafting.PatternProviderItem;
 import com.refinedmods.refinedstorage.common.api.support.HelpTooltipComponent;
@@ -11,23 +9,21 @@ import com.refinedmods.refinedstorage.common.content.DataComponents;
 import com.refinedmods.refinedstorage.common.content.Items;
 import com.refinedmods.refinedstorage.common.util.ClientPlatformUtil;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.function.Consumer;
+import javax.annotation.Nullable;
 
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
-import org.jspecify.annotations.Nullable;
 
 import static com.refinedmods.refinedstorage.common.util.IdentifierUtil.createTranslation;
 import static com.ultramega.refinedfluidsubstitution.common.FluidSubstitutionIdentifierUtil.createFluidSubstitutionTranslation;
@@ -37,7 +33,7 @@ public class FluidSubstitutionPatternItem extends Item implements PatternProvide
     private static final Component FLUID_SUBSTITUTION_HELP = createFluidSubstitutionTranslation("item", "fluid_substitution_pattern.help");
 
     public FluidSubstitutionPatternItem() {
-        super(new Item.Properties().setId(ResourceKey.create(Registries.ITEM, ContentIds.FLUID_SUBSTITUTION_PATTERN)));
+        super(new Item.Properties());
     }
 
     @Override
@@ -76,22 +72,20 @@ public class FluidSubstitutionPatternItem extends Item implements PatternProvide
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public void appendHoverText(final ItemStack stack,
                                 final TooltipContext context,
-                                final TooltipDisplay display,
-                                final Consumer<Component> builder,
+                                final List<Component> tooltipComponents,
                                 final TooltipFlag tooltipFlag) {
-        getVanillaPatternItem().appendHoverText(stack, context, display, builder, tooltipFlag);
+        getVanillaPatternItem().appendHoverText(stack, context, tooltipComponents, tooltipFlag);
     }
 
     @Override
-    public InteractionResult use(final Level level, final Player player, final InteractionHand hand) {
+    public InteractionResultHolder<ItemStack> use(final Level level, final Player player, final InteractionHand hand) {
         final ItemStack stack = player.getItemInHand(hand);
         if (!level.isClientSide() && player.isCrouching()) {
-            return InteractionResult.CONSUME.heldItemTransformedTo(new ItemStack(this, stack.getCount()));
+            return new InteractionResultHolder<>(InteractionResult.CONSUME, new ItemStack(this, stack.getCount()));
         }
-        return InteractionResult.PASS;
+        return new InteractionResultHolder<>(InteractionResult.PASS, stack);
     }
 
     private static PatternItem getVanillaPatternItem() {

@@ -44,7 +44,7 @@ public abstract class AutocrafterBlockEntityMixin {
     @Shadow(remap = false)
     public abstract FilteredContainer getPatternContainer();
 
-    @Inject(method = "onPatternChanged", at = @At("RETURN"))
+    @Inject(method = "patternChanged", at = @At("RETURN"))
     private void rfs$queueFluidSubstitutionRefresh(final CallbackInfo ci) {
         this.rfs$fluidSubstitutionRefreshPending = true;
     }
@@ -80,7 +80,7 @@ public abstract class AutocrafterBlockEntityMixin {
 
             final int patternSlot = slot;
             FluidSubstitutionPatternResolver.resolve(stack, level).ifPresent(resolved -> {
-                node.tryUpdatePattern(patternSlot, resolved.pattern());
+                node.setPattern(patternSlot, resolved.pattern());
                 for (final Pattern helper : resolved.helperPatterns()) {
                     helpers.putIfAbsent(helper.layout(), helper);
                 }
@@ -96,10 +96,10 @@ public abstract class AutocrafterBlockEntityMixin {
             if (helperIndex >= extension.rfs$getPatternCapacity()) {
                 break;
             }
-            node.tryUpdatePattern(helperIndex++, helper);
+            node.setPattern(helperIndex++, helper);
         }
         while (helperIndex < extension.rfs$getPatternCapacity()) {
-            node.tryUpdatePattern(helperIndex++, null);
+            node.setPattern(helperIndex++, null);
         }
     }
 }

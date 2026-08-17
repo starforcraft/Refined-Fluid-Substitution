@@ -26,9 +26,6 @@ refinedarchitect {
     modId = "refinedfluidsubstitution"
     version = modVersion
     fabric()
-    publishing {
-        maven = true
-    }
 }
 
 base {
@@ -44,5 +41,5 @@ dependencies {
     compileOnly(project(":common"))
     commonJava(project(path = ":common", configuration = "commonJava"))
     commonResources(project(path = ":common", configuration = "commonResources"))
-    api("com.refinedmods.refinedstorage:refinedstorage-fabric:${refinedstorageVersion}")
+    modApi("com.refinedmods.refinedstorage:refinedstorage-fabric:${refinedstorageVersion}")
 }

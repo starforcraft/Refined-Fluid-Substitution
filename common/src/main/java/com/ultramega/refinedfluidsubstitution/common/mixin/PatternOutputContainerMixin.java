@@ -14,8 +14,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class PatternOutputContainerMixin {
     @Inject(method = "canPlaceItem", at = @At("HEAD"), cancellable = true)
     private void acceptMappedFluidSubstitutionPattern(final int slot,
-                                                           final ItemStack stack,
-                                                           final CallbackInfoReturnable<Boolean> cir) {
+                                                      final ItemStack stack,
+                                                      final CallbackInfoReturnable<Boolean> cir) {
         if (stack.getItem() instanceof FluidSubstitutionPatternItem && stack.has(DataComponents.INSTANCE.getPatternState())) {
             cir.setReturnValue(true);
         }

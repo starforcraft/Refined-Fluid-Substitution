@@ -4,8 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
-import org.jspecify.annotations.Nullable;
+import javax.annotation.Nullable;
 
 public final class FluidSubstitutionPatternTooltipCache {
     private static final int MAX_ENTRIES = 1000;
@@ -31,7 +30,7 @@ public final class FluidSubstitutionPatternTooltipCache {
         CACHE.put(patternId, Map.copyOf(substitutionsBySlot));
     }
 
-    public static FluidSubstitutionPatternResolver.@Nullable Substitution getSubstitution(final UUID patternId,
+    public static @Nullable FluidSubstitutionPatternResolver.Substitution getSubstitution(final UUID patternId,
                                                                                           final int slot) {
         final Map<Integer, FluidSubstitutionPatternResolver.Substitution> substitutionsBySlot = CACHE.get(patternId);
         return substitutionsBySlot == null ? null : substitutionsBySlot.get(slot);

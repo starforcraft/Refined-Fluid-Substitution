@@ -1,4 +1,7 @@
-@NullMarked
+@ParametersAreNonnullByDefault
+@FieldsAndMethodsAreNonnullByDefault
 package com.ultramega.refinedfluidsubstitution.fabric;
 
-import org.jspecify.annotations.NullMarked;
+import com.refinedmods.refinedstorage.api.core.FieldsAndMethodsAreNonnullByDefault;
+
+import javax.annotation.ParametersAreNonnullByDefault;

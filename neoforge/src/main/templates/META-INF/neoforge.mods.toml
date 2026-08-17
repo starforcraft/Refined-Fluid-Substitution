@@ -1,4 +1,5 @@
 modLoader = "javafml"
+loaderVersion = "[2,)"
 issueTrackerURL = "https://github.com/starforcraft/Refined-Fluid-Substitution/issues"
 license = "MIT"
 [[mods]]
@@ -16,12 +17,12 @@ config = "refinedfluidsubstitution.mixins.json"
 [[dependencies.refinedfluidsubstitution]]
 modId = "refinedstorage"
 type = "required"
-versionRange = "3.2.0"
+versionRange = "2.0.9"
 side = "BOTH"
 
 [[dependencies.refinedfluidsubstitution]]
 modId="minecraft"
 type="required"
-versionRange="[26.1.2,)"
+versionRange="[1.21.1,)"
 ordering="NONE"
 side="BOTH"

@@ -2,8 +2,12 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "B": "minecraft:bucket",
-    "P": "refinedstorage:pattern"
+    "B": {
+      "item": "minecraft:bucket"
+    },
+    "P": {
+      "item": "refinedstorage:pattern"
+    }
   },
   "pattern": [
     "BPB"

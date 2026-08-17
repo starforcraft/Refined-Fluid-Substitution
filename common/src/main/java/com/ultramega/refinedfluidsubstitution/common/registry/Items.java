@@ -3,8 +3,7 @@ package com.ultramega.refinedfluidsubstitution.common.registry;
 import com.ultramega.refinedfluidsubstitution.common.fluidsubstitutionpattern.FluidSubstitutionPatternItem;
 
 import java.util.function.Supplier;
-
-import org.jspecify.annotations.Nullable;
+import javax.annotation.Nullable;
 
 import static java.util.Objects.requireNonNull;
 

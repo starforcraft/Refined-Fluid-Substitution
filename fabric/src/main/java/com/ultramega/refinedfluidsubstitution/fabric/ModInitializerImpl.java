@@ -8,7 +8,7 @@ import com.refinedmods.refinedstorage.common.content.DirectRegistryCallback;
 import com.refinedmods.refinedstorage.fabric.api.RefinedStoragePlugin;
 
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -30,7 +30,7 @@ public class ModInitializerImpl extends AbstractModInitializer implements Refine
             Registries.CREATIVE_MODE_TAB,
             refinedStorageApi.getCreativeModeTabId()
         );
-        CreativeModeTabEvents.modifyOutputEvent(creativeModeTab).register(
+        ItemGroupEvents.modifyEntriesEvent(creativeModeTab).register(
             entries -> CreativeModeTabItems.appendItems(entries::accept)
         );
     }

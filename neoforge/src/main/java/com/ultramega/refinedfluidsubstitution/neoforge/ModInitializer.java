@@ -10,12 +10,14 @@ import java.util.function.Supplier;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -27,6 +29,9 @@ public class ModInitializer extends AbstractModInitializer {
 
     public ModInitializer(final IEventBus eventBus) {
         this.registerContent(eventBus);
+        if (FMLEnvironment.dist == Dist.CLIENT) {
+            eventBus.addListener(ClientModInitializer::onClientSetup);
+        }
         eventBus.addListener(this::registerCreativeModeTabListener);
     }
 
@@ -53,7 +58,7 @@ public class ModInitializer extends AbstractModInitializer {
 
     private record ForgeRegistryCallback<T>(DeferredRegister<T> registry) implements RegistryCallback<T> {
         @Override
-        public <R extends T> Supplier<R> register(final Identifier id, final Supplier<R> value) {
+        public <R extends T> Supplier<R> register(final ResourceLocation id, final Supplier<R> value) {
             return this.registry.register(id.getPath(), value);
         }
     }

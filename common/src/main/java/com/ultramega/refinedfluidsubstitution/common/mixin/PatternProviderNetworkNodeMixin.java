@@ -6,8 +6,8 @@ import com.refinedmods.refinedstorage.api.autocrafting.Pattern;
 import com.refinedmods.refinedstorage.api.network.impl.node.patternprovider.PatternProviderNetworkNode;
 
 import java.util.Arrays;
+import javax.annotation.Nullable;
 
-import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
@@ -18,7 +18,7 @@ public abstract class PatternProviderNetworkNodeMixin implements PatternProvider
     @Shadow(remap = false)
     @Final
     @Mutable
-    private Pattern @Nullable[] patterns;
+    private @Nullable Pattern[] patterns;
 
     @Override
     public void rfs$ensurePatternCapacity(final int capacity) {

@@ -1,0 +1,11 @@
+{
+  "parent": "refinedfluidsubstitution:item/fluid_substitution_pattern/empty",
+  "overrides": [
+    {
+      "predicate": {
+        "refinedfluidsubstitution:encoded": 1
+      },
+      "model": "refinedfluidsubstitution:item/fluid_substitution_pattern/pattern"
+    }
+  ]
+}
