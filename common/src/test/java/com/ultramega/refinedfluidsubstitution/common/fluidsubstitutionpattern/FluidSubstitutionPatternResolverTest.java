@@ -17,13 +17,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.material.Fluids;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static com.ultramega.refinedfluidsubstitution.common.fluidsubstitutionpattern.FluidSubstitutionPatternResolver.createHelperPatternUUID;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@MinecraftRegistriesTest
+@ExtendWith(SetupMinecraft.class)
 class FluidSubstitutionPatternResolverTest {
     private static final UUID PATTERN_ID = UUID.fromString("41ca7d2d-2cec-427a-aa84-ba2f4e4aa425");
     private static final long BUCKET_AMOUNT = 1000;
