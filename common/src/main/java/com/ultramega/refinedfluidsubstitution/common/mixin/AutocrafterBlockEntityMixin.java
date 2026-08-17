@@ -16,14 +16,21 @@ import java.util.Map;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value = AutocrafterBlockEntity.class, remap = false)
+@Pseudo
+@Mixin(
+    value = AutocrafterBlockEntity.class,
+    targets = "com.ultramega.cabletiers.common.autocrafting.autocrafter.TieredAutocrafterBlockEntity",
+    remap = false
+)
 public abstract class AutocrafterBlockEntityMixin {
     @Unique
     private static final int MAX_HELPERS_PER_PATTERN = 9;
@@ -34,7 +41,7 @@ public abstract class AutocrafterBlockEntityMixin {
     @Unique
     private boolean rfs$fluidSubstitutionRefreshPending;
 
-    @Shadow
+    @Shadow(remap = false)
     public abstract FilteredContainer getPatternContainer();
 
     @Inject(method = "onPatternChanged", at = @At("RETURN"))
@@ -53,15 +60,15 @@ public abstract class AutocrafterBlockEntityMixin {
 
     @Unique
     private void rfs$updateFluidSubstitutionPatterns() {
-        final AutocrafterBlockEntity autocrafter = (AutocrafterBlockEntity) (Object) this;
+        final BlockEntity autocrafter = (BlockEntity) (Object) this;
         final Level level = autocrafter.getLevel();
-        if (level == null || level.isClientSide()) {
+        if (level == null || level.isClientSide() || !(autocrafter instanceof MainNetworkNodeAccessor networkNodeAccessor)) {
             return;
         }
 
         final FilteredContainer patterns = this.getPatternContainer();
         final int physicalPatternCount = patterns.getContainerSize();
-        final PatternProviderNetworkNode node = (PatternProviderNetworkNode) ((MainNetworkNodeAccessor) autocrafter).rfs$getMainNetworkNode();
+        final PatternProviderNetworkNode node = (PatternProviderNetworkNode) networkNodeAccessor.rfs$getMainNetworkNode();
         final PatternProviderNetworkNodeExtension extension = (PatternProviderNetworkNodeExtension) node;
 
         final Map<PatternLayout, Pattern> helpers = new LinkedHashMap<>();

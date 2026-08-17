@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(value = PatternProviderNetworkNode.class, remap = false)
 public abstract class PatternProviderNetworkNodeMixin implements PatternProviderNetworkNodeExtension {
-    @Shadow
+    @Shadow(remap = false)
     @Final
     @Mutable
     private Pattern @Nullable[] patterns;

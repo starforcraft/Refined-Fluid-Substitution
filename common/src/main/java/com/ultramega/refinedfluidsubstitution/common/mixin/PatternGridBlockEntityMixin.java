@@ -18,11 +18,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = PatternGridBlockEntity.class, remap = false)
 public abstract class PatternGridBlockEntityMixin {
-    @Shadow
+    @Shadow(remap = false)
     @Final
     private FilteredContainer patternInput;
 
-    @Shadow
+    @Shadow(remap = false)
     @Final
     private FilteredContainer patternOutput;
 

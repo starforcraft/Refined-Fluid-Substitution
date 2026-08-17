@@ -29,15 +29,15 @@ public abstract class CraftingPatternClientTooltipComponentMixin {
     @Unique
     private static final int FLUID_BADGE_BACKGROUND = 0xC0000000;
 
-    @Shadow
+    @Shadow(remap = false)
     @Final
     private int width;
 
-    @Shadow
+    @Shadow(remap = false)
     @Final
     private PatternResolver.ResolvedCraftingPattern pattern;
 
-    @Shadow
+    @Shadow(remap = false)
     private int currentCycle;
 
     @Inject(method = "renderInputSlot", at = @At("TAIL"))

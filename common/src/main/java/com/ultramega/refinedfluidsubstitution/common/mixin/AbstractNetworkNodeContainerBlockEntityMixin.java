@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(value = AbstractNetworkNodeContainerBlockEntity.class, remap = false)
 public abstract class AbstractNetworkNodeContainerBlockEntityMixin implements MainNetworkNodeAccessor {
-    @Shadow
+    @Shadow(remap = false)
     @Final
     protected NetworkNode mainNetworkNode;
 

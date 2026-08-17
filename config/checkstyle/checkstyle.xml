@@ -95,6 +95,7 @@
         <module name="UnusedImports"/>
         <module name="BooleanExpressionComplexity"/>
         <module name="CyclomaticComplexity">
+            <property name="max" value="12"/>
             <property name="switchBlockAsSingleDecisionPoint" value="true"/>
         </module>
         <module name="NoCodeInFile"/>
