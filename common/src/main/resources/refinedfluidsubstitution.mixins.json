@@ -10,7 +10,8 @@
     "AutocrafterBlockEntityMixin",
     "PatternGridBlockEntityMixin",
     "PatternOutputContainerMixin",
-    "PatternProviderNetworkNodeMixin"
+    "PatternProviderNetworkNodeMixin",
+    "StepCrafterBlockEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1
