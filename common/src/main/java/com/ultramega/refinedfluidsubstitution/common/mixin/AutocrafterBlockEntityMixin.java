@@ -28,7 +28,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Pseudo
 @Mixin(
     value = AutocrafterBlockEntity.class,
-    targets = "com.ultramega.cabletiers.common.autocrafting.autocrafter.TieredAutocrafterBlockEntity",
+    targets = {
+        "com.ultramega.cabletiers.common.autocrafting.autocrafter.TieredAutocrafterBlockEntity",
+        "edivad.extrastorage.autocrafting.advancedautocrafter.AdvancedAutocrafterBlockEntity"
+    },
     remap = false
 )
 public abstract class AutocrafterBlockEntityMixin {
